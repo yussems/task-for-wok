@@ -11,7 +11,7 @@ const GET_LOCATIONS = gql`
       currency
       languages {
         name
-        native
+        
       }
       name
       native
@@ -22,9 +22,36 @@ const GET_LOCATIONS = gql`
 
 export default function Home() {
   const { loading, error, data } = useQuery(GET_LOCATIONS);
+  console.log(data);
 
   if (loading) return <CustomLoading />;
   if (error) return <CustomError />;
 
-  return <main className="my-2">{JSON.stringify(data,2, null)}</main>;
+  return (
+    <main className="my-2">
+      <div className="flex flex-wrap gap-2">
+        {data.countries.map((item) => {
+          const { code, currency, languages, name, phone } = item;
+          return (
+            <div
+              key={phone}
+              className="w-[240px] bg-violet-600 rounded-2xl p-2 text-white text-xl"
+            >
+              <h3 className="text-yellow-400">{name}</h3>
+              <p>
+                Code: <span>{code}</span>
+              </p>
+              <p>
+                Currency: <span>{currency}</span>
+              </p>
+              <p>
+                Language: <span>{languages[0]?.name}</span>
+              </p>
+              <p className="text-end text-gray-400">+{phone}</p>
+            </div>
+          );
+        })}
+      </div>
+    </main>
+  );
 }
