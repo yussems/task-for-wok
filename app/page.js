@@ -1,11 +1,21 @@
 "use client";
 import Image from "next/image";
 import { useQuery, gql } from "@apollo/client";
+import CustomError from "./components/CustomError";
+import CustomLoading from "./components/CustomLoading";
 
 const GET_LOCATIONS = gql`
-  query ExampleQuery {
+  query Query {
     countries {
+      code
+      currency
+      languages {
+        name
+        native
+      }
       name
+      native
+      phone
     }
   }
 `;
@@ -13,8 +23,8 @@ const GET_LOCATIONS = gql`
 export default function Home() {
   const { loading, error, data } = useQuery(GET_LOCATIONS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+  if (loading) return <CustomLoading />;
+  if (error) return <CustomError />;
 
-  return <div> {JSON.stringify( data)}</div>;
+  return <main className="my-2">{JSON.stringify(data,2, null)}</main>;
 }
