@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import CustomLoading from "./CustomLoading";
 import CustomError from "./CustomError";
@@ -20,9 +19,9 @@ const GET_LOCATIONS = gql`
   }
 `;
 
-const Country = () => {
+const Country = ({ currency, language }) => {
   const [selectedColor, setSelectedColor] = useState({});
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(false);
   const { loading, error, data } = useQuery(GET_LOCATIONS);
 
   if (loading) return <CustomLoading />;
@@ -30,14 +29,18 @@ const Country = () => {
 
   const handleClick = (name) => {
     const newColor = getRandomColor();
-    setCheck(!check)
+    setCheck(!check);
     setSelectedColor(() => ({ [name]: newColor }));
   };
+  const filteredList = data.countries.filter(
+    (item) => item?.languages[0]?.name.toLowerCase() === language.toLowerCase()
+  );
+  console.log(currency);
   return (
     <div className="flex flex-wrap gap-2">
-            <input className="hidden" type="checkbox" checked={check}  />
-      
-      {data.countries.map((item) => {
+      <input className="hidden" type="checkbox" checked={check} />
+
+      {(filteredList.length > 0 ? filteredList : data.countries).map((item) => {
         const { code, currency, languages, name, phone } = item;
         return (
           <div

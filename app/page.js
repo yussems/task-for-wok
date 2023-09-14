@@ -1,9 +1,5 @@
-import Country from "./components/Country";
+import Main from "./components/Main";
 
 export default function Home() {
-  return (
-    <main className="my-2">
-      <Country />
-    </main>
-  );
+  return <Main />;
 }

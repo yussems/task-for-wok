@@ -1,6 +1,6 @@
-import React from "react";
+"use client";
 
-const Navbar = () => {
+const Navbar = ({ setLanguage, setCurrency }) => {
   return (
     <div className="p-8 flex justify-between items-center">
       <div>
@@ -8,12 +8,26 @@ const Navbar = () => {
       </div>
       <div className="flex gap-2">
         <div>
-          <label htmlFor="language" className="block mb-2">Language</label>
-          <input className="w-full rounded-md focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-violet-600 border-gray-300 text-gray-900 p-1" type="text" id="language" />
+          <label htmlFor="language" className="block mb-2">
+            Language
+          </label>
+          <input
+            onChange={(e) => setLanguage(e.target.value)}
+            className="w-full rounded-md focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-violet-600 border-gray-300 text-gray-900 p-1"
+            type="text"
+            id="language"
+          />
         </div>
         <div>
-          <label className="block mb-2" htmlFor="curren">Currency</label>
-          <input type="text" className="w-full rounded-md focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-violet-600 border-gray-300 p-1 text-gray-900" id="curren" />
+          <label className="block mb-2" htmlFor="curren">
+            Currency
+          </label>
+          <select onChange={(e) => setCurrency(e.target.value)} name="Currency" id="curren">
+            <option defaultValue value="all">All</option>
+            <option value="usd">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </select>
         </div>
       </div>
     </div>

@@ -17,7 +17,6 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Graph>
           <div className="bg-gray-100 max-w-5xl mx-auto px-4">
-            <Navbar />
             {children}
             <Footer />
           </div>
