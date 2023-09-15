@@ -34,19 +34,15 @@ const Country = ({ currency, language }) => {
   };
   const filteredList = data.countries.filter(
     (item) =>
-      item?.languages[0]?.name.toLowerCase() === language.toLowerCase() ||
+      item?.languages[0]?.name.toLowerCase() === language.toLowerCase() &&
       currency === item.currency
   );
-  filteredList.filter((item) => item.currency === currency);
-  console.log(filteredList[10]);
 
   const message = filteredList.length <= 0;
-  
-  
-
+console.log(message);
   return (
     <>
-      {/* { message && <p>Arama kriterinizle uyuşan bir şey bulunamadı.</p> } */}
+      { message && <p>Arama kriterinizle uyuşan bir şey bulunamadı.</p> }
       <div className="flex flex-wrap gap-2 justify-center">
         <input className="hidden" type="checkbox" checked={check} />
 
@@ -65,9 +61,7 @@ const Country = ({ currency, language }) => {
                 <p>
                   Code: <span>{code}</span>
                 </p>
-                <p className="truncate">
-                  Currency:  {currency}
-                </p>
+                <p className="truncate">Currency: {currency}</p>
                 <p>
                   Language: <span>{languages[0]?.name}</span>
                 </p>
