@@ -27,43 +27,58 @@ const Country = ({ currency, language }) => {
   if (loading) return <CustomLoading />;
   if (error) return <CustomError />;
 
+  const newColor = getRandomColor();
   const handleClick = (name) => {
-    const newColor = getRandomColor();
     setCheck(!check);
     setSelectedColor(() => ({ [name]: newColor }));
   };
   const filteredList = data.countries.filter(
-    (item) => item?.languages[0]?.name.toLowerCase() === language.toLowerCase()
+    (item) =>
+      item?.languages[0]?.name.toLowerCase() === language.toLowerCase() ||
+      currency === item.currency
   );
-  console.log(currency);
+  filteredList.filter((item) => item.currency === currency);
+  console.log(filteredList <= 0);
+  const message = filteredList.length <= 0;
   return (
-    <div className="flex flex-wrap gap-2">
-      <input className="hidden" type="checkbox" checked={check} />
+    <>
+      {/* { message && <p>Arama kriterinizle uyuşan bir şey bulunamadı.</p> } */}
+      <div className="flex flex-wrap gap-2">
+        <input className="hidden" type="checkbox" checked={check} />
 
-      {(filteredList.length > 0 ? filteredList : data.countries).map((item) => {
-        const { code, currency, languages, name, phone } = item;
-        return (
-          <div
-            onClick={() => handleClick(name)}
-            style={{ backgroundColor: check && selectedColor[name] }}
-            key={name}
-            className="w-[240px] bg-violet-600 rounded-2xl p-2 text-white text-xl"
-          >
-            <h3 className="text-yellow-400">{name}</h3>
-            <p>
-              Code: <span>{code}</span>
-            </p>
-            <p>
-              Currency: <span>{currency}</span>
-            </p>
-            <p>
-              Language: <span>{languages[0]?.name}</span>
-            </p>
-            <p className="text-end text-gray-400">+{phone}</p>
-          </div>
-        );
-      })}
-    </div>
+        {(filteredList.length > 0 ? filteredList : data.countries).map(
+          (item, index) => {
+            const { code, currency, languages, name, phone } = item;
+            if (filteredList[10]) {
+              setSelectedColor(() => ({ [filteredList[10].name]: newColor }));
+              setSelectedColor(true);
+            }
+            
+
+            return (
+              <div
+                onClick={() => handleClick(name)}
+                style={{ backgroundColor: check && selectedColor[name] }}
+                key={name}
+                className="w-[240px] bg-violet-600 rounded-2xl p-2 text-white text-xl"
+              >
+                <h3 className="text-yellow-400">{name}</h3>
+                <p>
+                  Code: <span>{code}</span>
+                </p>
+                <p>
+                  Currency: <span>{currency}</span>
+                </p>
+                <p>
+                  Language: <span>{languages[0]?.name}</span>
+                </p>
+                <p className="text-end text-gray-400">+{phone}</p>
+              </div>
+            );
+          }
+        )}
+      </div>
+    </>
   );
 };
 

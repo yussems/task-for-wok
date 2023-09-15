@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import Country from "./Country";
 
 const Main = () => {
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("ALLCURREN");
   const [language, setLanguage] = useState("");
   console.log(currency,language);
 

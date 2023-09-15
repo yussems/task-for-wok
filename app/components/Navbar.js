@@ -23,10 +23,12 @@ const Navbar = ({ setLanguage, setCurrency }) => {
             Currency
           </label>
           <select onChange={(e) => setCurrency(e.target.value)} name="Currency" id="curren">
-            <option defaultValue value="all">All</option>
-            <option value="usd">USD</option>
+            <option value="ALLCURREN">ALL</option>
+            <option value="AUD">AUD</option>
+            <option value="USD">USD</option>
             <option value="EUR">EUR</option>
             <option value="GBP">GBP</option>
+            <option value="CAD">CAD</option>
           </select>
         </div>
       </div>
