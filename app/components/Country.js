@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomLoading from "./CustomLoading";
 import CustomError from "./CustomError";
 import { useQuery, gql } from "@apollo/client";
@@ -38,36 +38,35 @@ const Country = ({ currency, language }) => {
       currency === item.currency
   );
   filteredList.filter((item) => item.currency === currency);
-  console.log(filteredList <= 0);
+  console.log(filteredList[10]);
+
   const message = filteredList.length <= 0;
+  
+  
+
   return (
     <>
       {/* { message && <p>Arama kriterinizle uyuşan bir şey bulunamadı.</p> } */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 justify-center">
         <input className="hidden" type="checkbox" checked={check} />
 
         {(filteredList.length > 0 ? filteredList : data.countries).map(
           (item, index) => {
             const { code, currency, languages, name, phone } = item;
-            if (filteredList[10]) {
-              setSelectedColor(() => ({ [filteredList[10].name]: newColor }));
-              setSelectedColor(true);
-            }
-            
 
             return (
               <div
                 onClick={() => handleClick(name)}
                 style={{ backgroundColor: check && selectedColor[name] }}
                 key={name}
-                className="w-[240px] bg-violet-600 rounded-2xl p-2 text-white text-xl"
+                className="w-56 bg-violet-600 rounded-2xl p-2 text-white text-xl"
               >
                 <h3 className="text-yellow-400">{name}</h3>
                 <p>
                   Code: <span>{code}</span>
                 </p>
-                <p>
-                  Currency: <span>{currency}</span>
+                <p className="truncate">
+                  Currency:  {currency}
                 </p>
                 <p>
                   Language: <span>{languages[0]?.name}</span>

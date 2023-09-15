@@ -2,7 +2,7 @@
 
 const Navbar = ({ setLanguage, setCurrency }) => {
   return (
-    <div className="p-8 flex justify-between items-center">
+    <div className="p-8 flex justify-between items-center max-md:flex-col">
       <div>
         <p className="text-3xl font-semibold">COUNTRIES</p>
       </div>
